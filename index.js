@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt')
 const logger = require('./loggers')
 const User = require('./user')
 const usersRouter = require('./logins/usersRouter');
+const loginRouter = require('./logins/login')
 const morgan = require('morgan')
 const cors = require('cors')
 
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use(morgan('tiny'))
 app.use(cors())
 app.use('/users', usersRouter);
+app.use('/login', loginRouter)
 
 
 // MONGOOSE
