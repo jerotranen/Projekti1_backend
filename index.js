@@ -9,6 +9,7 @@ const logger = require('./loggers')
 const User = require('./user')
 const usersRouter = require('./logins/usersRouter');
 const loginRouter = require('./logins/login')
+const formRouter = require('./misc/formRouter');
 const morgan = require('morgan')
 const cors = require('cors')
 
@@ -18,8 +19,9 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(cors())
-app.use('/users', usersRouter);
+app.use('/users', usersRouter)
 app.use('/login', loginRouter)
+app.use('/ilmot', formRouter);
 
 
 // MONGOOSE
