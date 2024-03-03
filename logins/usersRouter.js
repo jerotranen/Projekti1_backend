@@ -5,12 +5,12 @@ const User = require('../user')
 // Way to create a user
 
 usersRouter.post('/', async (request, response) => {
-    const { username, name, password } = request.body
+    const { sposti, name, password } = request.body
   
-    const existingUser = await User.findOne({ username })
+    const existingUser = await User.findOne({ sposti })
     if (existingUser) {
       return response.status(400).json({
-        error: 'username must be unique'
+        error: 'sposti must be unique'
       })
     }
   
@@ -18,7 +18,7 @@ usersRouter.post('/', async (request, response) => {
     const passwordHash = await bcrypt.hash(password, saltRounds)
   
     const user = new User({
-      username,
+      sposti,
       name,
       passwordHash,
     })
