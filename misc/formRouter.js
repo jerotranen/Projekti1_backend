@@ -5,6 +5,11 @@ formRouter.post('/', async (req, res) => {
   try {
     const { name, sposti, createdAt } = req.body;
 
+    const existingForm = await Form.findOne({ sposti });
+    if (existingForm) {
+      return res.status(400).json({ error: 'Sähköpostilla on jo ilmoittauduttu' });
+    }
+
     const newIlmo = new Form({ name, sposti, createdAt });
     await newIlmo.save();
 

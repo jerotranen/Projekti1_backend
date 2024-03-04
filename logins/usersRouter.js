@@ -10,7 +10,7 @@ usersRouter.post('/', async (request, response) => {
     const existingUser = await User.findOne({ sposti })
     if (existingUser) {
       return response.status(400).json({
-        error: 'sposti must be unique'
+        error: 'Sähköposti on jo käytössä'
       })
     }
   
