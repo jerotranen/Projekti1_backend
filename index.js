@@ -12,6 +12,8 @@ const loginRouter = require('./logins/login')
 const formRouter = require('./misc/formRouter');
 const morgan = require('morgan')
 const cors = require('cors')
+const Form = require('./form')
+const ilmoStatusRouter = require('./misc/isopenrouter');
 
 const app = express();
 
@@ -22,6 +24,7 @@ app.use(cors())
 app.use('/users', usersRouter)
 app.use('/login', loginRouter)
 app.use('/ilmot', formRouter);
+app.use('/status', ilmoStatusRouter);
 
 
 // MONGOOSE
@@ -39,6 +42,16 @@ mongoose.connect(config.MONGODB_URI)
         const users = await User.find({});
         res.json(users);
       });
+    
+    app.get('/ilmot', async (req, res) => {
+      const ilmot = await Form.find({});
+      res.json(ilmot);
+    });
+
+    app.delete('/ilmot', async (req, res) => {
+      await Form.deleteMany({});
+      res.status(204).send();
+    });
 
 app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`);
