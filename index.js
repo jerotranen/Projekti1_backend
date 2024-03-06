@@ -14,6 +14,8 @@ const morgan = require('morgan')
 const cors = require('cors')
 const Form = require('./form')
 const ilmoStatusRouter = require('./misc/isopenrouter');
+const imageRouter = require('./misc/imageRouter');
+const Image = require('./image');
 
 const app = express();
 
@@ -25,6 +27,7 @@ app.use('/users', usersRouter)
 app.use('/login', loginRouter)
 app.use('/ilmot', formRouter);
 app.use('/status', ilmoStatusRouter);
+app.use('/image', imageRouter);
 
 
 // MONGOOSE
@@ -52,6 +55,11 @@ mongoose.connect(config.MONGODB_URI)
       await Form.deleteMany({});
       res.status(204).send();
     });
+
+    app.get('/image', async (req, res) => {
+      const imageURL = await Image.findOne();
+      res.json(imageURL);
+  });
 
 app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`);
