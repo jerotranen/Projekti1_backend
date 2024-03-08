@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Schema ilmoittautumiselle
+
 const formSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,7 +15,7 @@ const formSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}, {versionKey: false});
 
 const Form = mongoose.model('Ilmo', formSchema);
 

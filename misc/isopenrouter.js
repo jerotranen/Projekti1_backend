@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const IlmoStatus = require('../isopen');
+const IlmoStatus = require('../models/isopen');
+
+// Tarkastaa ilmoittautumisen tilan
+// Voidaan avata tai sulkea admin-oikeuksilla
 
 router.get('/', async (req, res) => {
     const status = await IlmoStatus.findOne({});

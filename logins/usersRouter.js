@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
-const User = require('../user')
+const User = require('../models/user')
 
-// Way to create a user
+// Router käyttäjän luomiselle tms
 
 usersRouter.post('/', async (request, response) => {
     const { sposti, name, password } = request.body
@@ -27,5 +27,10 @@ usersRouter.post('/', async (request, response) => {
   
     response.status(201).json(savedUser)
   })
+
+  usersRouter.get('/', async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
+  });
 
 module.exports = usersRouter

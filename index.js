@@ -6,16 +6,13 @@ const config = require('./config')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const logger = require('./loggers')
-const User = require('./user')
 const usersRouter = require('./logins/usersRouter');
 const loginRouter = require('./logins/login')
 const formRouter = require('./misc/formRouter');
 const morgan = require('morgan')
 const cors = require('cors')
-const Form = require('./form')
 const ilmoStatusRouter = require('./misc/isopenrouter');
 const imageRouter = require('./misc/imageRouter');
-const Image = require('./image');
 
 const app = express();
 
@@ -40,26 +37,6 @@ mongoose.connect(config.MONGODB_URI)
     .catch((error) => {
         logger.error('error connection to MongoDB:', error.message)
     })
-
-    app.get('/users', async (req, res) => {
-        const users = await User.find({});
-        res.json(users);
-      });
-    
-    app.get('/ilmot', async (req, res) => {
-      const ilmot = await Form.find({});
-      res.json(ilmot);
-    });
-
-    app.delete('/ilmot', async (req, res) => {
-      await Form.deleteMany({});
-      res.status(204).send();
-    });
-
-    app.get('/image', async (req, res) => {
-      const imageURL = await Image.findOne();
-      res.json(imageURL);
-  });
 
 app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`);

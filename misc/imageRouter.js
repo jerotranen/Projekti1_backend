@@ -1,5 +1,7 @@
 const imageRouter = require('express').Router();
-const Image = require('../image');
+const Image = require('../models/image');
+
+// Router ilmoittautumisen kuvalle
 
 imageRouter.post('/', async (req, res) => {
   const { imageURL } = req.body;
@@ -19,6 +21,11 @@ imageRouter.post('/', async (req, res) => {
     console.error('Error submitting image URL:', error);
     res.status(500).json({ error: 'An error occurred while submitting image URL' });
   }
+});
+
+imageRouter.get('/', async (req, res) => {
+  const imageURL = await Image.findOne();
+  res.json(imageURL);
 });
 
 module.exports = imageRouter;

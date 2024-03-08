@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 
+// Käyttäjälle schema
+
 const userSchema = mongoose.Schema({
   sposti: String,
   name: String,
   passwordHash: String,
-})
+}, { versionKey: false })
 
 userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
