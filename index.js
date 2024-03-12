@@ -1,6 +1,5 @@
 require('dotenv').config()
 const cors = require('cors')
-app.use(cors())
 const http = require('http')
 const express = require('express')
 const mongoose = require('mongoose')
@@ -15,6 +14,7 @@ const morgan = require('morgan')
 const ilmoStatusRouter = require('./misc/isopenrouter');
 const imageRouter = require('./misc/imageRouter');
 const app = express();
+app.use(cors())
 
 app.use(express.static('build'))
 app.use(express.json())
