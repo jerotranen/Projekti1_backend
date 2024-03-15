@@ -1,6 +1,8 @@
 require('dotenv').config()
 const cors = require('cors')
 const http = require('http')
+const https = require('https');
+const fs = require('fs');
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./config')
@@ -36,8 +38,15 @@ mongoose.connect(config.MONGODB_URI)
         logger.error('error connection to MongoDB:', error.message)
     })
 
-app.listen(config.PORT, () => {
-  console.log(`Server running on port ${config.PORT}`);
-});
+    const serverOptions = {
+      key: fs.readFileSync('./certs/server.key'),
+      cert: fs.readFileSync('./certs/server.cert')
+    };
+    
+    const server = https.createServer(serverOptions, app);
+    
+    server.listen(config.PORT, () => {
+      console.log(`Server running on port ${config.PORT}`);
+    });
 
 module.exports = app;
